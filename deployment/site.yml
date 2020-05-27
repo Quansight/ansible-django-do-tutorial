@@ -1,0 +1,5 @@
+---
+- import_playbook: digital_ocean_droplet.yml
+- import_playbook: docker_setup.yml
+- import_playbook: clone_repository.yml
+- import_playbook: compose_start.yml
