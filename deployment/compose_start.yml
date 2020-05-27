@@ -1,7 +1,10 @@
 ---
 - hosts: do
+  vars_files:
+    - vars/default.yml
+
   tasks:
     - name: Create and start services
       docker_compose:
-        project_src: /root/ansible-django-do-tutorial
+        project_src: "{{ repository_clone_path }}"
       register: output

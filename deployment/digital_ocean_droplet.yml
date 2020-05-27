@@ -7,33 +7,45 @@
 
   tasks:
     - openssh_keypair:
-        path: /root/.ssh/id_rsa
+        path: "{{ ssh_keys_path_remote }}/id_rsa"
 
-    - name: "Create ssh key"
+    - name: Create SSH key
       digital_ocean_sshkey:
         name: "ansible-tutorial-ssh-key"
-        ssh_pub_key: "{{ lookup('file', '/root/.ssh/id_rsa.pub') }}"
+        ssh_pub_key: "{{ lookup('file', ssh_keys_path_remote + '/id_rsa.pub') }}"
         state: present
       register: docker_ssh_key
 
-    - digital_ocean_droplet:
+    - name: Create Digital Ocean Droplet
+      digital_ocean_droplet:
         unique_name: yes # "yes" makes it idempotent
-        region: nyc3
-        image: ubuntu-20-04-x64
-        size_id: s-1vcpu-1gb
+        region: "{{ digital_ocean_region }}"
+        image: "{{ digital_ocean_image }}"
+        size_id: "{{ digital_ocean_image_size_id }}"
         wait: yes
-        name: "{{ droplet_name }}"
+        name: "{{ digital_ocean_droplet_name }}"
         state: present
         ssh_keys: [ "{{ docker_ssh_key.data.ssh_key.id }}" ]
       register: created_droplet
 
-    - digital_ocean_tag:
-        name: ansible-tutorial-django
+    - name: Ensure Digital Ocean Droplet is Present
+      digital_ocean_droplet:
+        state: present
+        id: "{{ created_droplet.data.droplet.id }}"
+        name: "{{ digital_ocean_droplet_name }}"
+        image: "{{ digital_ocean_image }}"
+        size_id: "{{ digital_ocean_image_size_id }}"
+        region: "{{ digital_ocean_region }}"
+        wait_timeout: 500
+
+    - name: Tag Digital Ocean Droplet
+      digital_ocean_tag:
+        name: "{{ digital_ocean_image_tag }}"
         resource_id: "{{ created_droplet.data.droplet.id }}"
         state: present
       register: tag_response
 
-    - name: add hosts
+    - name: Add Droplet to "do" host
       add_host:
         name: "{{ created_droplet.data.ip_address }}"
         groups: "do"

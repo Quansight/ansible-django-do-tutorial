@@ -1,12 +1,15 @@
 ---
 - hosts: do
+  vars_files:
+    - vars/default.yml
+
   tasks:
     - name: Clone repository
       git:
-        repo: 'https://github.com/Quansight/ansible-django-do-tutorial.git'
-        dest: /root/ansible-django-do-tutorial
+        repo: "{{ repository_url }}"
+        dest: "{{ repository_clone_path }}"
 
     - name: Copy environment variables (.env) files to repository
       copy:
-        src: /app/.env
-        dest: /root/ansible-django-do-tutorial/.env
+        src: "{{ env_file_path_docker_local }}"
+        dest: "{{ repository_clone_path }}/.env"
