@@ -1,0 +1,7 @@
+---
+- hosts: do
+  tasks:
+    - name: Clone repository
+      git:
+        repo: 'https://github.com/Quansight/ansible-django-do-tutorial.git'
+        dest: /root/ansible-django-do-tutorial
