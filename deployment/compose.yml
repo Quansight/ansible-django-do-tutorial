@@ -1,0 +1,7 @@
+---
+- hosts: do
+  tasks:
+    - name: Create and start services
+      docker_compose:
+        project_src: /root/ansible-django-do-tutorial
+      register: output

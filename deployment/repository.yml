@@ -5,3 +5,8 @@
       git:
         repo: 'https://github.com/Quansight/ansible-django-do-tutorial.git'
         dest: /root/ansible-django-do-tutorial
+
+    - name: Copy environment variables (.env) files to repository
+      copy:
+        src: /app/.env
+        dest: /root/ansible-django-do-tutorial/.env

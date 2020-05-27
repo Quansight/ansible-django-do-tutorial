@@ -2,3 +2,4 @@
 - import_playbook: digital_ocean_droplet.yml
 - import_playbook: docker.yml
 - import_playbook: repository.yml
+- import_playbook: compose.yml
