@@ -6,12 +6,12 @@
 
   tasks:
     - openssh_keypair:
-        path: "{{ ssh_keys_path_remote }}/id_rsa"
+        path: "{{ ssh_keys_path_docker }}/id_rsa"
 
     - name: Create SSH key
       digital_ocean_sshkey:
         name: "ansible-tutorial-ssh-key"
-        ssh_pub_key: "{{ lookup('file', ssh_keys_path_remote + '/id_rsa.pub') }}"
+        ssh_pub_key: "{{ lookup('file', ssh_keys_path_docker + '/id_rsa.pub') }}"
         state: present
       register: docker_ssh_key
 

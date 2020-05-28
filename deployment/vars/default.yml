@@ -1,8 +1,8 @@
 ---
 repository_url: https://github.com/Quansight/ansible-django-do-tutorial.git
 repository_clone_path: /root/ansible-django-do-tutorial
-env_file_path_docker_local: /app/.env
-ssh_keys_path_remote: /root/.ssh
+env_file_path_docker: /app/.env
+ssh_keys_path_docker: /root/.ssh
 
 digital_ocean_droplet_name: ansible-tutorial
 digital_ocean_region: nyc3

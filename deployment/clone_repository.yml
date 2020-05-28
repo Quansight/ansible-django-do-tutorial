@@ -11,5 +11,5 @@
 
     - name: Copy environment variables (.env) files to repository
       copy:
-        src: "{{ env_file_path_docker_local }}"
+        src: "{{ env_file_path_docker }}"
         dest: "{{ repository_clone_path }}/.env"
