@@ -5,6 +5,7 @@ env_file_path_docker: /app/.env
 ssh_keys_path_docker: /root/.ssh
 
 digital_ocean_droplet_name: ansible-tutorial
+digital_ocean_ssh_key_name: ansible-tutorial-ssh-key
 digital_ocean_region: nyc3
 digital_ocean_image: ubuntu-20-04-x64
 digital_ocean_image_tag: ansible-tutorial-django
