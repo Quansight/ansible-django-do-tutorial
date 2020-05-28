@@ -11,7 +11,7 @@
 
     - name: Upload SSH Key to Digital Ocean
       digital_ocean_sshkey:
-        name: "{{ ansible-tutorial-ssh-key }}"
+        name: "{{ digital_ocean_ssh_key_name }}"
         ssh_pub_key: "{{ lookup('file', ssh_keys_path_docker + '/id_rsa.pub') }}"
         state: present
       register: docker_ssh_key
