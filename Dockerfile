@@ -17,3 +17,4 @@ RUN mkdir -p /root/.ssh
 
 EXPOSE 8000
 ENV PYTHONPATH='.'
+ENV ANSIBLE_CONFIG='/app/deployment/ansible.cfg'
