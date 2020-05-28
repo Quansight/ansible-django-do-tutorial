@@ -1,7 +1,6 @@
 ---
 - hosts: localhost
   connection: local
-  gather_facts: false
   vars_files:
     - vars/default.yml
 
@@ -28,16 +27,6 @@
         ssh_keys: [ "{{ docker_ssh_key.data.ssh_key.id }}" ]
       register: created_droplet
 
-    - name: Ensure Digital Ocean Droplet is Present
-      digital_ocean_droplet:
-        state: present
-        id: "{{ created_droplet.data.droplet.id }}"
-        name: "{{ digital_ocean_droplet_name }}"
-        image: "{{ digital_ocean_image }}"
-        size_id: "{{ digital_ocean_image_size_id }}"
-        region: "{{ digital_ocean_region }}"
-        wait_timeout: 500
-
     - name: Tag Digital Ocean Droplet
       digital_ocean_tag:
         name: "{{ digital_ocean_image_tag }}"
@@ -49,3 +38,6 @@
       add_host:
         name: "{{ created_droplet.data.ip_address }}"
         groups: "do"
+
+    - name: Wait for SSH to come up
+      local_action: wait_for host={{ created_droplet.data.ip_address }} port=22 delay=10 timeout=320 state=started

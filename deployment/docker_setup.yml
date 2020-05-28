@@ -1,5 +1,6 @@
 ---
 - hosts: do
+
   tasks:
     - name: Install prerequisites for Docker repository
       apt:
